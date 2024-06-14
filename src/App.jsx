@@ -162,7 +162,7 @@ function App() {
                 <img
                   src={profil}
                   alt="andro"
-                  className="min-w-full mx-auto blur-sm rounded-full"
+                  className="min-w-full mx-auto blur-sm rounded-full hover:blur-none"
                 />
                 <span className="absolute -top-14 left-1/2 -z-10 -translate-x-1/2 md:scale-125">
                   <svg
