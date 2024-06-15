@@ -16,6 +16,9 @@ import traveloka from "./assets/clients/traveloka.svg";
 function App() {
   const [isActive, setIsActive] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
+  const [dark, setDark] = useState(false);
+
+  // darkmode
 
   function navbar() {
     setIsActive(!isActive);
@@ -38,7 +41,14 @@ function App() {
   });
 
   return (
-    <>
+    <div
+      className={`${localStorage.getItem("theme")}`}
+      onClick={() => {
+        if (isActive) {
+          setIsActive(false);
+        }
+      }}
+    >
       {/* navbar start */}
       <header
         className={`bg-transparent absolute top-0 left-0 w-full flex items-center z-10 ${
@@ -72,13 +82,13 @@ function App() {
                 id="nav-menu"
                 className={`${
                   !isActive ? "hidden" : ""
-                } absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none lg:py-0`}
+                } absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none lg:py-0 dark:bg-dark lg:dark:bg-transparent dark:shadow-slate-500`}
               >
                 <ul className="block lg:flex">
                   <li className="group">
                     <a
                       href="#home"
-                      className="text-base text-dark py-2 mx-8 flex hover:text-primary lg:inline-flex"
+                      className="text-base text-dark py-2 mx-8 flex hover:text-primary dark:text-white lg:inline-flex"
                     >
                       Beranda
                     </a>
@@ -86,7 +96,7 @@ function App() {
                   <li className="group">
                     <a
                       href="#about"
-                      className="text-base text-dark py-2 mx-8 flex hover:text-primary lg:inline-flex"
+                      className="text-base text-dark py-2 mx-8 flex hover:text-primary dark:text-white lg:inline-flex"
                     >
                       Tentang saya
                     </a>
@@ -94,7 +104,7 @@ function App() {
                   <li className="group">
                     <a
                       href="#portfolio"
-                      className="text-base text-dark py-2 mx-8 flex hover:text-primary lg:inline-flex"
+                      className="text-base text-dark py-2 mx-8 flex hover:text-primary dark:text-white lg:inline-flex"
                     >
                       Portfolio
                     </a>
@@ -102,7 +112,7 @@ function App() {
                   <li className="group">
                     <a
                       href="#clients"
-                      className="text-base text-dark py-2 mx-8 flex hover:text-primary lg:inline-flex"
+                      className="text-base text-dark py-2 mx-8 flex hover:text-primary dark:text-white lg:inline-flex"
                     >
                       Klien
                     </a>
@@ -110,7 +120,7 @@ function App() {
                   <li className="group">
                     <a
                       href="#blog"
-                      className="text-base text-dark py-2 mx-8 flex hover:text-primary lg:inline-flex"
+                      className="text-base text-dark py-2 mx-8 flex hover:text-primary dark:text-white lg:inline-flex"
                     >
                       Blog
                     </a>
@@ -118,10 +128,31 @@ function App() {
                   <li className="group">
                     <a
                       href="#contact"
-                      className="text-base text-dark py-2 mx-8 flex hover:text-primary lg:inline-flex"
+                      className="text-base text-dark py-2 mx-8 flex hover:text-primary dark:text-white lg:inline-flex"
                     >
                       Contact
                     </a>
+                  </li>
+                  <li className="flex items-center pl-8 mt-3 lg:mt-0 lg:pl-0">
+                    <div className="flex">
+                      <span className="mr-2 text-sm text-slate-500">Light</span>
+                      <button
+                        className="flex h-5 w-9 cursor-pointer items-center rounded-full bg-slate-500 p-1"
+                        onClick={() => {
+                          setDark(!dark);
+                          if (!dark) {
+                            localStorage.setItem("theme", "dark");
+                          } else {
+                            localStorage.setItem("theme", "light");
+                          }
+                        }}
+                      >
+                        <div
+                          className={`${localStorage.getItem("theme") == "dark" ? "toggle-circle" : ""} h-4 w-4 rounded-full bg-white transition duration-300 ease-in-out`}
+                        ></div>
+                      </button>
+                      <span className="ml-2 text-sm text-slate-500">Dark</span>
+                    </div>
                   </li>
                 </ul>
               </nav>
@@ -132,20 +163,23 @@ function App() {
       {/* navbar end  */}
 
       {/* Hero section start */}
-      <section id="home" className="pt-36">
+      <section id="home" className="pt-36 dark:bg-dark">
         <div className="container">
           <div className="flex flex-wrap">
             <div className="w-full self-center px-4 lg:w-1/2">
               <h1 className="text-base font-semibold text-primary md:text-xl">
                 Halo Semua, Saya{" "}
-                <span className="block font-bold text-dark text-4xl mt-1 lg:5xl">
+                <span className="block font-bold text-dark text-4xl mt-1 lg:5xl dark:text-white">
                   Ade Ariawan
                 </span>
               </h1>
-              <h2 className="font-medium text-secondary text-lg mb-5 lg:text-2xl">
-                Teacher | <span className="text-dark">Web Programmer</span>
+              <h2 className="font-medium text-secondary text-lg mb-5 lg:text-2xl dark:text-white">
+                Teacher |{" "}
+                <span className="text-dark dark:text-white">
+                  Web Programmer
+                </span>
               </h2>
-              <p className="font-medium text-secondary mb-10 leading-relaxed">
+              <p className="font-medium text-secondary mb-10 leading-relaxed dark:text-white">
                 Belajar web programming itu mudah dan menyenangkan
                 <span className="font-semibold text-dark"> bukan!</span>.
               </p>
@@ -162,9 +196,9 @@ function App() {
                 <img
                   src={profil}
                   alt="andro"
-                  className="min-w-full mx-auto blur-sm rounded-full hover:blur-none"
+                  className="min-w-full mx-auto blur-sm rounded-full hover:blur-none relative z-10"
                 />
-                <span className="absolute -top-14 left-1/2 -z-10 -translate-x-1/2 md:scale-125">
+                <span className="absolute -top-14 left-1/2  -translate-x-1/2 md:scale-125">
                   <svg
                     width={500}
                     height={500}
@@ -186,14 +220,14 @@ function App() {
       {/* Hero section end */}
 
       {/* About section start  */}
-      <section id="about" className="pt-36 pb-32">
+      <section id="about" className="pt-36 pb-32 dark:bg-dark">
         <div className="container">
           <div className="flex flex-wrap">
             <div className="w-full px-4 mb-10 lg:w-1/2">
-              <h4 className="font-bold uppercase text-primary text-lg mb-3">
+              <h4 className="font-bold uppercase text-primary text-lg mb-3 ">
                 Tentang Saya
               </h4>
-              <h2 className="font-bold text-dark text-3xl mb-5 max-w-md lg:text-4xl">
+              <h2 className="font-bold text-dark text-3xl mb-5 max-w-md lg:text-4xl dark:text-white">
                 Yuk, Belajar web programming
               </h2>
               <p className="font-medium text-base text-secondary max-w-xl lg:text-lg">
@@ -202,7 +236,7 @@ function App() {
               </p>
             </div>
             <div className="w-full px-4 lg:w-1/2">
-              <h3 className="font-semibold text-dark text-2xl mb-4 lg:text-3xl lg:pt-10">
+              <h3 className="font-semibold text-dark text-2xl mb-4 lg:text-3xl lg:pt-10 dark:text-white">
                 Mari berteman
               </h3>
               <p className="font-medium text-base text-secondary mb-6 lg:text-lg">
@@ -290,14 +324,17 @@ function App() {
       {/* About section end  */}
 
       {/* Portfolio section start  */}
-      <section id="portfolio" className="pt-36 pb-16 bg-slate-200">
+      <section
+        id="portfolio"
+        className="pt-36 pb-16 bg-slate-200 dark:bg-slate-800"
+      >
         <div className="container">
           <div className="w-full px-4">
             <div className="max-w-xl mx-auto text-center mb-16">
               <h4 className="font-semibold text-lg text-primary mb-2">
                 Portfolio
               </h4>
-              <h2 className="font-bold text-dark text-3xl mb-4 sm:text-4xl lg:text-5xl">
+              <h2 className="font-bold text-dark text-3xl mb-4 sm:text-4xl lg:text-5xl dark:text-white">
                 Project Terbaru
               </h2>
               <p className="font-medium text-md text-secondary lg:text-lg">
@@ -313,7 +350,7 @@ function App() {
               <div className="rounded-md shadow-md overflow-hidden">
                 <img src={img1} className="w-full" alt="" />
               </div>
-              <h3 className="font-semibold text-xl mt-5 mb-3">
+              <h3 className="font-semibold text-xl mt-5 mb-3 dark:text-white">
                 Landing page Ade Andro
               </h3>
               <p className="font-medium text-base text-secondary">
@@ -325,7 +362,9 @@ function App() {
               <div className="rounded-md shadow-md overflow-hidden">
                 <img src={img1} className="w-full" alt="" />
               </div>
-              <h3 className="font-semibold text-xl mt-5 mb-3">E-Commerce</h3>
+              <h3 className="font-semibold text-xl mt-5 mb-3 dark:text-white">
+                E-Commerce
+              </h3>
               <p className="font-medium text-base text-secondary">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat
                 qui ratione dolorum.
@@ -335,7 +374,7 @@ function App() {
               <div className="rounded-md shadow-md overflow-hidden">
                 <img src={img1} className="w-full" alt="" />
               </div>
-              <h3 className="font-semibold text-xl mt-5 mb-3">
+              <h3 className="font-semibold text-xl mt-5 mb-3 dark:text-white">
                 Tecnical Documentation
               </h3>
               <p className="font-medium text-base text-secondary">
@@ -347,7 +386,9 @@ function App() {
               <div className="rounded-md shadow-md overflow-hidden">
                 <img src={img1} className="w-full" alt="" />
               </div>
-              <h3 className="font-semibold text-xl mt-5 mb-3">Tribute Page</h3>
+              <h3 className="font-semibold text-xl mt-5 mb-3 dark:text-white">
+                Tribute Page
+              </h3>
               <p className="font-medium text-base text-secondary">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat
                 qui ratione dolorum.
@@ -359,15 +400,17 @@ function App() {
       {/* Portfolio section end  */}
 
       {/* client section start  */}
-
-      <section id="clients" className="pt-36 pb-32 bg-slate-800">
+      <section
+        id="clients"
+        className="pt-36 pb-32 bg-slate-800 dark:bg-slate-300"
+      >
         <div className="container">
           <div className="w-full px-4">
             <div className=" mx-auto text-center mb-16">
               <h4 className="font-semibold text-lg text-primary mb-2">
                 Clients
               </h4>
-              <h2 className="font-bold text-white text-3xl mb-4 sm:text-4xl lg:text-5xl">
+              <h2 className="font-bold text-white text-3xl mb-4 sm:text-4xl lg:text-5xl dark:text-dark">
                 Yang Pernah Bekerjasama
               </h2>
               <p className="font-medium text-md text-secondary md:text-lg">
@@ -410,12 +453,12 @@ function App() {
       {/* client section end  */}
 
       {/* blog section start  */}
-      <section id="blog" className="pt-36 pb-32 bg-slate-100">
+      <section id="blog" className="pt-36 pb-32 bg-slate-100 dark:bg-dark">
         <div className="container">
           <div className="w-full px-4">
             <div className="max-w-xl mx-auto text-center mb-16">
               <h4 className="font-semibold text-lg text-primary mb-2">Blog</h4>
-              <h2 className="font-bold text-dark text-3xl mb-4 sm:text-4xl lg:text-5xl">
+              <h2 className="font-bold text-dark text-3xl mb-4 sm:text-4xl lg:text-5xl dark:text-white">
                 Artikel Terkini
               </h2>
               <p className="font-medium text-md text-secondary lg:text-lg">
@@ -427,7 +470,7 @@ function App() {
 
           <div className="flex flex-wrap">
             <div className="w-full px-4 lg:w-1/2 xl:w-1/3">
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg mb-10">
+              <div className="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg mb-10">
                 <img src={img1} alt="programming" className="w-full" />
                 <div className="py-8 px-6">
                   <h3>
@@ -438,7 +481,7 @@ function App() {
                       Review Keyboard
                     </a>
                   </h3>
-                  <p className="font-medium text-secondary text-base mb-4">
+                  <p className="font-medium text-secondary text-base mb-4 dark:text-white">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Neque, odit eum? Ab.
                   </p>
@@ -452,13 +495,13 @@ function App() {
               </div>
             </div>
             <div className="w-full px-4 lg:w-1/2 xl:w-1/3">
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg mb-10">
+              <div className="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg mb-10">
                 <img src={img1} alt="programming" className="w-full" />
                 <div className="py-8 px-6">
                   <h3>
                     <a
                       href="#"
-                      className="block mb-3 font-semibold text-xl hover:text-primary truncate"
+                      className="block mb-3 font-semibold text-xl hover:text-primary truncate dark:text-white"
                     >
                       Menikmati secangkir kopi
                     </a>
@@ -477,13 +520,13 @@ function App() {
               </div>
             </div>
             <div className="w-full px-4 lg:w-1/2 xl:w-1/3">
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg mb-10">
+              <div className="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg mb-10">
                 <img src={img1} alt="programming" className="w-full" />
                 <div className="py-8 px-6">
                   <h3>
                     <a
                       href="#"
-                      className="block mb-3 font-semibold text-xl hover:text-primary truncate"
+                      className="block mb-3 font-semibold text-xl hover:text-primary truncate dark:text-white"
                     >
                       Tips Belajar Programming
                     </a>
@@ -507,14 +550,14 @@ function App() {
       {/* blog section end */}
 
       {/* contact section start  */}
-      <section id="contact" className="pt-36 pb-32">
+      <section id="contact" className="pt-36 pb-32 dark:bg-slate-800">
         <div className="container">
           <div className="w-full px-4">
             <div className="max-w-xl mx-auto text-center mb-16">
               <h4 className="font-semibold text-lg text-primary mb-2">
                 Contact
               </h4>
-              <h2 className="font-bold text-dark text-3xl mb-4 sm:text-4xl lg:text-5xl">
+              <h2 className="font-bold text-dark text-3xl mb-4 sm:text-4xl lg:text-5xl dark:text-white ">
                 Hubungi kami
               </h2>
               <p className="font-medium text-md text-secondary lg:text-lg">
@@ -767,7 +810,17 @@ function App() {
         </div>
       </footer>
       {/* footer end  */}
-    </>
+
+      {/* back to top  */}
+      <a
+        href="#home"
+        className={`h-14 w-14 bg-primary rounded-full fixed z-[999] bottom-4 right-4 p-4 justify-center items-center hover:animate-pulse ${isFixed ? "flex" : "hidden"}`}
+      >
+        <span className="block w-5 h-5 border-t-2 border-l-2 rotate-45 mt-2"></span>
+      </a>
+
+      {/* back to top end  */}
+    </div>
   );
 }
 

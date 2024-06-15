@@ -7,11 +7,11 @@ body {
 }
 
 .navbar-fixed {
-  @apply fixed z-[9999] bg-white bg-opacity-70 shadow-lg backdrop-blur-md;
+  @apply fixed z-[9999] bg-white bg-opacity-70 shadow-lg backdrop-blur-md dark:bg-dark dark:bg-opacity-50;
 }
 
 .hamburger-line {
-  @apply w-[30px] h-[2px] my-2 block bg-dark;
+  @apply w-[30px] h-[2px] my-2 block bg-dark dark:bg-white;
 }
 
 .hamburger-active > span:nth-child(1) {
@@ -22,4 +22,8 @@ body {
 }
 .hamburger-active > span:nth-child(2) {
   @apply scale-0;
+}
+
+.toggle-circle {
+  @apply translate-x-3;
 }
