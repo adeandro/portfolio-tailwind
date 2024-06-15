@@ -43,11 +43,11 @@ function App() {
   return (
     <div
       className={`${localStorage.getItem("theme")}`}
-      onClick={() => {
-        if (isActive) {
-          setIsActive(false);
-        }
-      }}
+      // onClick={() => {
+      //   if (isActive) {
+      //     setIsActive(false);
+      //   }
+      // }}
     >
       {/* navbar start */}
       <header
